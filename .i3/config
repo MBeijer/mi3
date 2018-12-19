@@ -1,0 +1,167 @@
+font xft:Alma Mono 12
+set $mod Mod4
+floating_modifier $mod
+
+new_window pixel 1
+new_float normal
+hide_edge_borders none
+gaps inner 32
+
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+
+# window control
+bindsym $mod+Shift+plus gaps inner current set 32
+bindsym $mod+Shift+minus gaps inner current set 32
+bindsym $mod+plus gaps inner current minus 128
+bindsym $mod+minus gaps inner current plus 128
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+g mode "gaps"
+mode "gaps" {
+	bindsym Left gaps inner current minus 128
+	bindsym Right gaps inner current plus 128
+	bindsym Down gaps inner current set 32
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	}
+
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+for_window [class="Gnome-calculator"] floating enable
+for_window [class="Viewnior"] floating enable
+for_window [class="Franz"] floating enable
+
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
+
+# shortcuts
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+r restart
+
+bindsym $mod+Shift+End exec i3exit logout
+bindsym $mod+Shift+Insert exec i3exit reboot
+bindsym $mod+Shift+Delete exec i3exit shutdown
+bindsym $mod+Shift+l exec blurlock
+
+bindsym $mod+Shift+d exec rofi -show run -font "Alma Mono Regular 14" -lines 10 -width 700 -location 0
+bindsym $mod+d exec rofi -show drun -font "Alma Mono Regular 14" -lines 10 -width 700 -location 0
+bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+
+bindsym $mod+Return exec terminal
+bindsym $mod+o exec pcmanfm
+bindsym $mod+Shift+o exec gksu pcmanfm
+bindsym $mod+i exec google-chrome-stable
+bindsym $mod+b exec bitwig-studio
+bindsym $mod+g exec gimp
+bindsym $mod+k exec kdenlive
+bindsym $mod+s exec steam
+bindsym $mod+m exec mousepad
+bindsym $mod+c exec gnome-calculator
+bindsym $mod+Shift+m exec franz
+
+bindsym Print exec --no-startup-id i3-scrot
+
+
+# autostart
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id compton -b
+exec --no-startup-id wal -i ~/Pictures/Wallpapers/gits1.jpg
+exec --no-startup-id polybar top & polybar bottom
+exec --no-startup-id volumeicon
+exec --no-startup-id cadence-session-start --system-start
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec --no-startup-id nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
